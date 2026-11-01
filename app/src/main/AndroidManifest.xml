@@ -34,10 +34,6 @@
             android:name=".CreateTournamentActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
-
-        <activity
-            android:name=".TournamentDetailActivity"
-            android:exported="false" />
     </application>
 
 </manifest>

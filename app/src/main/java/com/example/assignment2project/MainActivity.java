@@ -45,16 +45,6 @@ public class MainActivity extends AppCompatActivity implements TournamentAdapter
             startActivity(new Intent(this, LoginActivity.class));
             finish();
         });
-
-        // Link each listItem with the tournament details activity
-        lvTournaments.setOnItemClickListener((parent, view, position, id) -> {
-            Tournament t = adapter.getItem(position);
-            if (t != null) {
-                Intent intent = new Intent(this, TournamentDetailActivity.class);
-                intent.putExtra("extra_tournament_id", t.getId());
-                startActivity(intent);
-            }
-        });
     }
 
     // reload all the tournaments if the app is resumed from the background
@@ -78,12 +68,15 @@ public class MainActivity extends AppCompatActivity implements TournamentAdapter
         }
     }
 
+    // Logic to edit a tournament
     @Override
     public void onEdit(Tournament tournament) {
+        // Open a new alert box with a predefined layout
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_edit_tournament, null);
         builder.setView(dialogView);
 
+        // Alert view references
         EditText etName = dialogView.findViewById(R.id.et_edit_name);
         EditText etStartDate = dialogView.findViewById(R.id.et_edit_start_date);
         EditText etEndDate = dialogView.findViewById(R.id.et_edit_end_date);
@@ -92,14 +85,17 @@ public class MainActivity extends AppCompatActivity implements TournamentAdapter
         etStartDate.setText(tournament.getStartDate());
         etEndDate.setText(tournament.getEndDate());
 
+        // Setup date pickers
         etStartDate.setOnClickListener(v -> pickDate(etStartDate));
         etEndDate.setOnClickListener(v -> pickDate(etEndDate));
 
+        // Update button logic
         builder.setPositiveButton("Update", (dialog, which) -> {
             String name = etName.getText().toString().trim();
             String start = etStartDate.getText().toString().trim();
             String end = etEndDate.getText().toString().trim();
 
+            // Update the details in the database if all the fields are NOT NULL
             if (!TextUtils.isEmpty(name) && !TextUtils.isEmpty(start) && !TextUtils.isEmpty(end)) {
                 dbHelper.updateTournament(tournament.getId(), name, start, end);
                 Toast.makeText(this, "Tournament updated", Toast.LENGTH_SHORT).show();
@@ -113,12 +109,15 @@ public class MainActivity extends AppCompatActivity implements TournamentAdapter
         builder.show();
     }
 
+    // Handle deleting a tournament
     @Override
     public void onDelete(Tournament tournament) {
+        // Create a new alert box asking the user if they are sure they'd like to delete the tournament
         new AlertDialog.Builder(this)
                 .setTitle("Delete Tournament")
                 .setMessage("Are you sure you want to delete '" + tournament.getName() + "'?")
                 .setPositiveButton("Delete", (dialog, which) -> {
+                    // Delete the tournament from the database
                     dbHelper.deleteTournament(tournament.getId());
                     Toast.makeText(this, "Tournament deleted", Toast.LENGTH_SHORT).show();
                     loadTournaments();
@@ -127,6 +126,7 @@ public class MainActivity extends AppCompatActivity implements TournamentAdapter
                 .show();
     }
 
+    // Handle date pickers
     private void pickDate(EditText target) {
         Calendar cal = Calendar.getInstance();
         new DatePickerDialog(this, (view, year, month, dayOfMonth) -> {
