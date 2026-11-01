@@ -5,6 +5,7 @@ import java.util.List;
 
 public class QuestionItem {
 
+    // Defines each question as it comes from the database
     @SerializedName("type")
     private String type;
 

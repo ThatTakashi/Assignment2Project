@@ -114,6 +114,7 @@ public class CreateTournamentActivity extends AppCompatActivity {
 
                         if (response.isSuccessful() && response.body() != null && response.body().getResults() != null) {
                             // Check if any questions were returned
+                            // Add them to a new list of QuestionItems so they can be parsed
                             List<QuestionItem> items = response.body().getResults();
                             if (items.isEmpty()) {
                                 Toast.makeText(CreateTournamentActivity.this, "No questions returned", Toast.LENGTH_SHORT).show();
