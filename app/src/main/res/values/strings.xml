@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Quiz Tournament Admin</string>
+    <string name="admin_login">Admin Login</string>
+    <string name="username">Username or Email</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="create_tournament">Create Quiz Tournament</string>
+    <string name="tournament_name">Tournament Name</string>
+    <string name="category">Category</string>
+    <string name="difficulty">Difficulty</string>
+    <string name="question_type">Question Type</string>
+    <string name="start_date">Start Date</string>
+    <string name="end_date">End Date</string>
+    <string name="rating">Rating (1 to 5)</string>
+    <string name="fetch_and_create">Create Tournament &amp; Fetch 10 Questions</string>
+    <string name="edit_tournament">Edit Tournament</string>
+    <string name="delete_tournament">Delete Tournament</string>
+    <string name="tournament_details">Tournament Details</string>
+    <string name="logout">Logout</string>
+</resources>
